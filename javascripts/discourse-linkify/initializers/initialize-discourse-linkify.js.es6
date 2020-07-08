@@ -46,8 +46,12 @@ export default {
   
       let linkify = new Action('linked_words', createLink);
       let actions = [linkify];
-      actions.forEach(readInputList);
-        
+      const linkifyData = api._lookupContainer('site:main').linkify_data;
+
+        actions.forEach(action => {
+          action.inputs = linkifyData;
+        });
+
       api.decorateCooked($elem => {
         actions.forEach(action => {
           if (Object.keys(action.inputs).length > 0) {
